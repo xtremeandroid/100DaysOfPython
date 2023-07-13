@@ -29,6 +29,8 @@ import pandas
 # df = pandas.DataFrame(data_dict)
 # df.to_csv("Day25/squirel_colors.csv")
 
+
+# States Guess Game
 screen = turtle.Screen()
 screen.title("U.S States Game")
 image = "blank_states_img.gif"
@@ -42,10 +44,7 @@ while len(guessed_states) < 50:
     ans_state = screen.textinput(f"{len(guessed_states)}/50 States Correct", "What's another state's name?").title()
 
     if ans_state == "Exit":
-        missing_states = []
-        for state in all_states:
-            if state not in guessed_states:
-                missing_states.append(state)
+        missing_states = [state for state in all_states if state not in guessed_states]
         new_data = pandas.DataFrame(missing_states)
         new_data.to_csv("StatestoLearn.csv")
         break
