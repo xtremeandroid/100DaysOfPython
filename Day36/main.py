@@ -36,12 +36,18 @@ def check_stock_movement():
     date2 = list(res.keys())[1]
     yesterday_stock_data = res[date2]
 
-    today_open = float(today_stock_data['1. open'])
+    today_close = float(today_stock_data['4. close'])
     yesterday_close = float(yesterday_stock_data['4. close'])
-    percentage_change = ((today_open - yesterday_close) / yesterday_close) * 100
+    percentage_change = (abs(today_close - yesterday_close) / yesterday_close) * 100
+    
+    if today_close > yesterday_close:
+        ticker = '🔺'
+    else:
+        ticker = '🔻'
+
     if percentage_change > 2:
         get_news()
-        message_content = (f"{COMPANY_NAME}: 🔺2% Headline : {top_articles[0]['title']}."
+        message_content = (f"{COMPANY_NAME}: {ticker}2% Headline : {top_articles[0]['title']}."
                        f"Brief : {top_articles[0]['description']}.")
         send_sms(message_content)
 
