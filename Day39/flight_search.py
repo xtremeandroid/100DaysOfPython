@@ -58,7 +58,11 @@ class FlightSearch:
         }
         response = requests.get(flight_search_endpoint, headers=header, params=params)
         response.raise_for_status()
-        data = response.json()["data"][0]
+        try:
+            data = response.json()["data"][0]
+        except IndexError:
+            print(f"No flights found for {fly_to}.")
+            return None
 
         flight_data = FlightData(
             price=data["price"],
