@@ -31,18 +31,23 @@ class InstaFollower:
         time.sleep(3)
 
         modal = self.driver.find_element(By.CSS_SELECTOR, 'div ._aano')
-        for i in range(10):
+        for i in range(20):
             self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
             time.sleep(2)
 
     def follow(self):
         time.sleep(10)
+        i = 0
         modal = self.driver.find_element(By.CSS_SELECTOR, 'div ._aano')
         all_buttons = modal.find_elements(By.CSS_SELECTOR, "div._aacl._aaco._aacw._aad6._aade")
-        i = 0
+
         for button in all_buttons:
             if button.text == 'Following' or button.text == 'Requested':
                 continue
+
+            if i >= 60:
+                break
+
             try:
                 button.click()
                 i += 1
