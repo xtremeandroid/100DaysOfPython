@@ -5,3 +5,4 @@ venv/
 .env
 token.txt
 geckodriver.log
+.sass-cache/
